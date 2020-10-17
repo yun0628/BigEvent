@@ -1,0 +1,61 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: url(../images/login_bg.jpg) no-repeat center;
+    background-size: cover;
+}
+
+/* 中间的白色窗体 */
+.loginAndRegBox {
+    position: absolute;
+    width: 400px;
+    height: 310px;
+    background-color: #fff;
+    left: calc(50% - 200px);
+    top: calc(50% - 155px);
+}
+
+/* 白色窗体中的标题 */
+.title-box {
+    height: 60px;
+    background: url(../images/login_title.png) no-repeat center;
+}
+
+/* 注册区域 隐藏 */
+.reg-box {
+    display: none;
+}
+
+/* 表单 设置内间距 */
+.layui-form {
+    padding: 0 30px;
+}
+
+/* 去登录/注册 靠右显示 */
+.links {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* 去登录/注册 字体大小 */
+.links a:link {
+    font-size: 12px;
+}
+
+/* 字体图标放到文本框上面 子绝父相 */
+.layui-form-item {
+    position: relative;
+}
+
+.layui-icon {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.layui-input {
+    padding-left: 32px;
+}
