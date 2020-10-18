@@ -40,7 +40,7 @@ $(function () {
 
 
     // ----------------------------------------------------
-    //注册表单提交的事件
+    //1.注册表单提交的事件
     $('#formReg').on('submit', function (e) {
         //a.取消表单的默认提交行为
         e.preventDefault();
@@ -50,7 +50,7 @@ $(function () {
             password: $('.reg-box [name=password]').val().trim()
         }
         //c.提交数据
-        $.post('http://ajax.frontend.itheima.net' + '/api/reguser', data, function (res) {
+        $.post('/api/reguser', data, function (res) {
             if (res.status !== 0) {
                 layui.layer.msg(res.message)
             } else {
@@ -70,14 +70,14 @@ $(function () {
     });
 
     // ----------------------------------------------------
-    //登陆表单的提交事件
+    //2.登陆表单的提交事件
     $('#formLogin').on('submit', function (e) {
         e.preventDefault();
         //a.获取用户名密码数据 urlencoded 格式 （键值对字符串--查询字符串）
         var strData = $(this).serialize();
         //b.提交到登录接口
         $.ajax({
-            url: 'http://ajax.frontend.itheima.net' + '/api/login',
+            url: '/api/login',
             method: 'POST',
             data: strData,
             success: function (res) {
@@ -85,7 +85,10 @@ $(function () {
                 layui.layer.msg(res.message, function () {
                     //d.判断是否成功，就跳转
                     if (res.status === 0) {
-                        location.href = 'index.html';
+                        //e.将服务器发来的token 保存到硬盘中
+                        localStorage.setItem('token', res.token);
+                        //f.跳转到页面
+                        location.href = './index.html'
                     }
                 })
 
