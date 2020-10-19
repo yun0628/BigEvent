@@ -1,4 +1,28 @@
 $(function () {
+    //a.添加layui的自定义校验规则-----
+    layui.form.verify({
+        repwd: function (confirmpwd) {
+            //a.获取新密码
+            var newpwdStr = $('[name=newPwd]').val().trim();
+            //b.比较两次新密码是否一致
+            if (newpwdStr != confirmpwd) {
+                return "两次密码输入不一致"
+            }
+
+        }
+    });
+
+    //表单提交事件
+    //a.触发 layui的表单验证机制
+    //  如果验证机制有返回错误消息，则阻断 b的执行
+    //如果验证机制没有返回任何错误消息， 则继续执行b
+    //b.执行 程序员注册的 事件方法代码 进行ajax提交
+    $('#formChangePwd').on('submit', function (e) {
+        e.preventDefault();
+        changePwd();
+    })
+
+
     //1.为提交按钮添加点击事件
     $('#btnSubmit').on('click', function () {
         changePwd();
