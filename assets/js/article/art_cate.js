@@ -46,7 +46,7 @@ $(function () {
 
   //e.为动态生成的数据行里的 删除按钮 代理点击事件
   $('.layui-table tbody').on('click', '.btn-del', function (e) {
-    delArtCate(this.dataset.did)
+    delArtCate(this.dataset.did);
   })
 
 
@@ -123,16 +123,23 @@ function editArtCate() {
 
 //5.删除分类 方法------------------
 function delArtCate(cateId) {
-  //a.异步请求
-  $.ajax({
-    url: '/my/article/deletcate' + cateId,
-    method: 'GET',
-    success(res) {
-      layui.layer.msg(res.message);
-      if (res.status === 0) {
-        getArtCateList;
+  layui.layer.confirm('亲，你真的要删了我吗？', {
+    icon: 3,
+    title: '提示'
+  }, function (index) {
+    //a.异步请求 分类删除 接口
+    $.ajax({
+      url: '/my/article/deletecate/' + cateId, // http..../deletecate/1
+      method: 'GET',
+      success(res) {
+        layui.layer.msg(res.message);
+        if (res.status === 0) {
+          //重新加载列表数据
+          getArtCateList();
+        }
       }
-    }
-
-  })
+    });
+    //关闭 消息窗
+    layer.close(index);
+  });
 }

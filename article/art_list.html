@@ -14,23 +14,25 @@
   <div class="layui-card">
     <div class="layui-card-header">文章列表</div>
     <div class="layui-card-body">
-      <!-- 筛选区域 -->
+      <!-- 筛选区域---------------- -->
       <form class="layui-form" id="form-search">
         <div class="layui-form-item layui-inline">
-          <select name="cate_id"></select>
+          <select name="selCate">
+            <option value="">所有分类</option>
+          </select>
         </div>
-        <div class="layui-form-item layui-inline">
-          <select name="state">
+        <div class=" layui-form-item layui-inline">
+          <select name="selStatus">
             <option value="">所有状态</option>
             <option value="已发布">已发布</option>
             <option value="草稿">草稿</option>
           </select>
         </div>
         <div class="layui-form-item layui-inline">
-          <button class="layui-btn" lay-submit lay-filter="formDemo">筛选</button>
+          <button id="btnSearch" class="layui-btn" lay-submit lay-filter="formDemo">筛选</button>
         </div>
       </form>
-      <!-- 列表区域 -->
+      <!-- 列表区域---------------------- -->
       <table class="layui-table">
         <colgroup>
           <col />
@@ -50,32 +52,31 @@
         </thead>
         <tbody></tbody>
       </table>
-      <!-- 分页区域 -->
-      <div id="pageBox"></div>
+      <!-- 分页区域------------------------ -->
+      <div id="pageBar"></div>
     </div>
   </div>
 
   <!-- 列表数据的模板引擎 -->
   <script type="text/html" id="tpl-row">
-    {{each data}}
+    {{each}}
     <tr>
       <td>{{$value.title}}</td>
       <td>{{$value.cate_name}}</td>
-      <td>{{$value.pub_date|dataFormat}}</td>
+      <td>{{$value.pub_date | dataFormat}}</td>
       <td>{{$value.state}}</td>
       <td>
         <button data-id="{{$value.Id}}" type="button" class="layui-btn layui-btn-xs btn-edit">编辑</button>
-        <button data-did="{{$value.Id}}" type="button" class="layui-btn layui-btn-danger layui-btn-xs btn-del"
-          data-id="{{$value.Id}}">删除</button>
+        <button data-id="{{$value.Id}}" type="button"
+          class="layui-btn layui-btn-danger layui-btn-xs btn-del">删除</button>
       </td>
     </tr>
     {{/each}}
   </script>
 
   <!-- 分类可选项的模板结构 -->
-  <script type="text/html" id="tpl-cate">
-    <option value="">所有分类</option>
-    {{each data}}
+  <script type="text/html" id="tpl-select-status">
+    {{each}}
     <option value="{{$value.Id}}">{{$value.name}}</option>
     {{/each}}
   </script>
